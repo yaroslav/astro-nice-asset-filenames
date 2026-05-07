@@ -75,12 +75,10 @@ Three transforms, layered:
 2. **Snake_cases (or kebab-cases) the basename.** `ThemeToggle` → `theme_toggle` via [`decamelize`](https://github.com/sindresorhus/decamelize), which handles acronym-heavy names correctly: `OAuth2Client` → `o_auth_2_client`, `HTMLParser` → `html_parser`.
 3. **Preserves the script-block index when it matters.** A `.astro` file with multiple `<script>` blocks emits separate chunks. `index=0` is dropped (the common case); `index >= 1` is appended as `-N` so the filenames remain distinguishable: `foo.HASH.js`, `foo-1.HASH.js`, `foo-2.HASH.js`.
 
-It also flips `cssCodeSplit: true` (Vite's default) so per-component CSS actually emerges as named chunks instead of a single `style.HASH.css` bundle, otherwise the rename has nothing to rename.
-
 ## Compatibility
 
 - Astro 6+ (the integration relies on Vite's Environment API, which Astro adopted in 6.0)
-- Node ≥ 18
+- Node ≥ 22.12.0 (matches Astro 6's minimum)
 
 Tested against static builds on rather simple websites; be wary.
 

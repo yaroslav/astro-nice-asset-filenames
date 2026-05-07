@@ -39,7 +39,7 @@
     "astro": "^6"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22.12.0"
   },
   "license": "MIT",
   "author": "Yaroslav Markin <yaroslav@markin.net>",
