@@ -1,0 +1,7 @@
+# https://lefthook.dev/configuration/
+pre-commit:
+  parallel: true
+  jobs:
+    - name: eslint
+      glob: "*.{js,mjs,cjs}"
+      run: npx eslint {staged_files}
