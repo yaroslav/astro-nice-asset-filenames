@@ -1,6 +1,6 @@
 {
   "name": "astro-nice-asset-filenames",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Astro integration for short, readable asset URLs. Shortens Astro's super-long client-script chunk names (ThemeToggle.astro_astro_type_script_index_0_lang.BhEhlh7m.js → theme_toggle.BhEhlh7m.js) and snake_cases extracted CSS (MainLayout.Pt3ADYuj.css → main_layout.Pt3ADYuj.css).",
   "keywords": [
     "astro",
