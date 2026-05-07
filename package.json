@@ -1,0 +1,53 @@
+{
+  "name": "astro-nice-asset-filenames",
+  "version": "0.1.0",
+  "description": "Astro integration for short, readable asset URLs. Shortens Astro's super-long client-script chunk names (ThemeToggle.astro_astro_type_script_index_0_lang.BhEhlh7m.js → theme_toggle.BhEhlh7m.js) and snake_cases extracted CSS (MainLayout.Pt3ADYuj.css → main_layout.Pt3ADYuj.css).",
+  "keywords": [
+    "astro",
+    "astro-integration",
+    "withastro",
+    "vite",
+    "rollup",
+    "filenames",
+    "asset-names",
+    "snake-case",
+    "decamelize"
+  ],
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "decamelize": "^6.0.1"
+  },
+  "peerDependencies": {
+    "astro": "^6"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "author": "Yaroslav Markin <yaroslav@markin.net>",
+  "homepage": "https://github.com/yaroslav/astro-nice-asset-filenames#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaroslav/astro-nice-asset-filenames.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yaroslav/astro-nice-asset-filenames/issues"
+  }
+}
