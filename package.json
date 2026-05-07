@@ -29,7 +29,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "lint": "eslint ."
   },
   "dependencies": {
     "decamelize": "^6.0.1"
@@ -49,5 +50,10 @@
   },
   "bugs": {
     "url": "https://github.com/yaroslav/astro-nice-asset-filenames/issues"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.3.0",
+    "globals": "^17.6.0"
   }
 }
