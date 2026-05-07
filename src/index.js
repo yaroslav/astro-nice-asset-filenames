@@ -47,9 +47,6 @@ export default function niceAssetFilenames(options = {}) {
         updateConfig({
           vite: {
             build: {
-              // Per-component CSS chunks need to exist before they can be
-              // renamed; the alternative is a single style.HASH.css bundle.
-              cssCodeSplit: true,
               // Top-level slot: Astro's prerender pass emits CSS through
               // here via ssrEmitAssets, and the user-config spread happens
               // before the defaults are frozen, so this override wins.
