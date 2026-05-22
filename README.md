@@ -9,8 +9,8 @@ Astro integration for short, readable asset URLs.
 By default, Astro's static build emits client-script chunks named after the synthetic module ID, with all the URL boilerplate replaced by underscores:
 
 ```
-_assets/ThemeToggle.astro_astro_type_script_index_0_lang.BhEhlh7m.js
-_assets/BaseLayout.Pt3ADYuj.css
+_astro/ThemeToggle.astro_astro_type_script_index_0_lang.BhEhlh7m.js
+_astro/BaseLayout.Pt3ADYuj.css
 ```
 
 **After:**
@@ -18,8 +18,8 @@ _assets/BaseLayout.Pt3ADYuj.css
 This integration shortens the script-block boilerplate and converts `PascalCase` to `snake_case` (or `kebab-case`):
 
 ```
-_assets/theme_toggle.BhEhlh7m.js
-_assets/base_layout.Pt3ADYuj.css
+_astro/theme_toggle.BhEhlh7m.js
+_astro/base_layout.Pt3ADYuj.css
 ```
 
 ## Contents
