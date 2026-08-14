@@ -77,7 +77,7 @@ Three transforms, layered:
 
 ## Compatibility
 
-- Astro 6+ (the integration relies on Vite's Environment API, which Astro adopted in 6.0)
+- Astro 6+, including Astro 7 (the integration relies on Vite's Environment API, which Astro adopted in 6.0; Astro 7's Rolldown-based builds are supported)
 - Node ≥ 22.12.0 (matches Astro 6's minimum)
 
 Tested against static builds on rather simple websites; be wary.

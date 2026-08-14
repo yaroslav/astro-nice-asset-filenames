@@ -2,6 +2,11 @@ import decamelize from "decamelize";
 
 const SCRIPT_BLOCK_RE = /\/([^/]+)\.astro\?astro&type=script(?:&index=(\d+))?/;
 const UNSAFE_CHUNK_CHAR_RE = /[^\w.\-/]/g;
+// Astro 7 names SSR-emitted page CSS after the page module, embedding the
+// route file's extension behind this marker (ASTRO_PAGE_EXTENSION_POST_PATTERN,
+// not publicly exported): index.astro -> "index@_@astro.css". Astro's default
+// assetFileNames splits on it; so must we.
+const PAGE_EXTENSION_MARKER = "@_@";
 
 /**
  * Compute the human-readable basename for a JS entry chunk. Exported for
@@ -28,7 +33,8 @@ export function entryName(chunkInfo, { separator = "_" } = {}) {
 export function assetName(assetInfo, { separator = "_" } = {}) {
   const name = assetInfo.names?.[0] ?? "";
   if (!name.endsWith(".css")) return null;
-  return decamelize(name.slice(0, -4), { separator });
+  const base = name.slice(0, -4).split(PAGE_EXTENSION_MARKER)[0];
+  return decamelize(base, { separator });
 }
 
 /**

@@ -82,6 +82,21 @@ test("assetName: nested PascalCase CSS handled", () => {
   assert.equal(assetName({ names: ["MyComponentIsAwesome.css"] }), "my_component_is_awesome");
 });
 
+test("assetName: strips Astro 7 page-extension marker", () => {
+  // Astro 7 names SSR-emitted page CSS after the page module, which embeds
+  // the internal extension marker: src/pages/index.astro -> index@_@astro.css
+  assert.equal(assetName({ names: ["index@_@astro.css"] }), "index");
+});
+
+test("assetName: decamelizes the page name in front of the marker", () => {
+  assert.equal(assetName({ names: ["MyFancyPage@_@astro.css"] }), "my_fancy_page");
+});
+
+test("assetName: handles non-astro page extensions in the marker", () => {
+  // Markdown pages carry their own extension after the marker.
+  assert.equal(assetName({ names: ["some-post@_@md.css"] }), "some-post");
+});
+
 test("assetName: non-CSS returns null (signal: skip)", () => {
   assert.equal(assetName({ names: ["icon.png"] }), null);
 });

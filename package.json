@@ -1,6 +1,6 @@
 {
   "name": "astro-nice-asset-filenames",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Astro integration for short, readable asset URLs. Shortens Astro's super-long client-script chunk names and snake_cases extracted CSS.",
   "keywords": [
     "astro",
@@ -37,7 +37,7 @@
     "decamelize": "^6.0.1"
   },
   "peerDependencies": {
-    "astro": "^6"
+    "astro": ">=6"
   },
   "engines": {
     "node": ">=22.12.0"
