@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { entryName, assetName } from "../src/index.js";
+import niceAssetFilenames, { entryName, assetName } from "../src/index.js";
 
 test("entryName: single-script .astro chunk → snake_case basename", () => {
   const info = {
@@ -109,5 +109,26 @@ test("assetName: respects custom separator for CSS", () => {
   assert.equal(
     assetName({ names: ["MyComponent.css"] }, { separator: "-" }),
     "my-component",
+  );
+});
+
+test("client config: entryFileNames and chunkFileNames both get entryName()", () => {
+  const integration = niceAssetFilenames();
+  let vite;
+  integration.hooks["astro:config:setup"]({
+    config: { build: { assets: "_astro" } },
+    updateConfig: (cfg) => {
+      vite = cfg.vite;
+    },
+  });
+  const { entryFileNames, chunkFileNames } =
+    vite.environments.client.build.rollupOptions.output;
+  assert.equal(
+    entryFileNames({ name: "ThemeToggle", facadeModuleId: null }),
+    "_astro/theme_toggle.[hash].js",
+  );
+  assert.equal(
+    chunkFileNames({ name: "Clickable", facadeModuleId: null }),
+    "_astro/clickable.[hash].js",
   );
 });

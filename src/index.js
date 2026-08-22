@@ -70,13 +70,17 @@ export default function niceAssetFilenames(options = {}) {
             },
             // Client-environment slot: Astro hard-sets entryFileNames at
             // the top level after the user spread, so the override has to
-            // live here (where the spread happens last).
+            // live here (where the spread happens last). Framework islands
+            // are emitted as dynamic chunks, which Rollup names via
+            // chunkFileNames, so that slot gets the same entryName() logic.
             environments: {
               client: {
                 build: {
                   rollupOptions: {
                     output: {
                       entryFileNames: (chunk) =>
+                        `${dir}/${entryName(chunk, { separator })}.[hash].js`,
+                      chunkFileNames: (chunk) =>
                         `${dir}/${entryName(chunk, { separator })}.[hash].js`,
                     },
                   },
