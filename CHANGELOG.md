@@ -7,6 +7,11 @@
   and imported by another island, or one loaded via `React.lazy()`/dynamic
   `import()`, kept Astro's default name (`_astro/Clickable.HASH.js` instead
   of `_astro/clickable.HASH.js`). Verified against Astro 6.4, 7.2 and 7.3.
+- CSS of `client:only` components is now renamed too. The prerender pass
+  never renders those components, so their CSS is emitted by the client
+  build alone, where Astro's own `assetFileNames` took precedence
+  (`_astro/HTMLPreview.HASH.css` instead of `_astro/html_preview.HASH.css`).
+  This was the known limitation listed under 0.2.0; it affected Astro 6 too.
 
 [#2]: https://github.com/yaroslav/astro-nice-asset-filenames/issues/2
 

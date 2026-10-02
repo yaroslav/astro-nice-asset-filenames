@@ -45,6 +45,22 @@ for (const { what, info, want } of chunkCases) {
   });
 }
 
+// CSS of a client:only component is never seen by the prerender pass, so it
+// is emitted (and named) by the client environment alone.
+test("client assetFileNames: client:only component CSS gets snake_case basename", () => {
+  assert.equal(
+    clientOutput().assetFileNames?.({ names: ["HTMLPreview.css"] }),
+    "_astro/html_preview.[hash].css",
+  );
+});
+
+test("client assetFileNames: non-CSS assets keep the default template", () => {
+  assert.equal(
+    clientOutput().assetFileNames?.({ names: ["MonoFont.woff2"] }),
+    "_astro/[name].[hash][extname]",
+  );
+});
+
 test("client chunkFileNames: respects custom separator", () => {
   const info = { name: "LazyChart", isEntry: false, isDynamicEntry: true, facadeModuleId: "/x/src/components/LazyChart.jsx" };
   assert.equal(

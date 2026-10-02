@@ -52,6 +52,13 @@ export default function niceAssetFilenames(options = {}) {
         const dir = config.build.assets;
         const jsFileName = (chunk) =>
           `${dir}/${entryName(chunk, { separator })}.[hash].js`;
+        const assetFileName = (info) => {
+          const transformed = assetName(info, { separator });
+          if (transformed === null) {
+            return `${dir}/[name].[hash][extname]`;
+          }
+          return `${dir}/${transformed}.[hash].css`;
+        };
 
         updateConfig({
           vite: {
@@ -61,13 +68,7 @@ export default function niceAssetFilenames(options = {}) {
               // before the defaults are frozen, so this override wins.
               rollupOptions: {
                 output: {
-                  assetFileNames: (info) => {
-                    const transformed = assetName(info, { separator });
-                    if (transformed === null) {
-                      return `${dir}/[name].[hash][extname]`;
-                    }
-                    return `${dir}/${transformed}.[hash].css`;
-                  },
+                  assetFileNames: assetFileName,
                 },
               },
             },
@@ -77,6 +78,9 @@ export default function niceAssetFilenames(options = {}) {
             // covers shared and lazy-loaded chunks (e.g. a component that
             // is both an island and imported by another island). It must
             // not move to the top level, which names server chunks.
+            // Astro also sets a client-env assetFileNames that beats the
+            // top-level one, so CSS only the client build sees (a
+            // client:only component's styles) needs the override here too.
             environments: {
               client: {
                 build: {
@@ -84,6 +88,7 @@ export default function niceAssetFilenames(options = {}) {
                     output: {
                       entryFileNames: jsFileName,
                       chunkFileNames: jsFileName,
+                      assetFileNames: assetFileName,
                     },
                   },
                 },
