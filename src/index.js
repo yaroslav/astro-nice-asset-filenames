@@ -9,8 +9,9 @@ const UNSAFE_CHUNK_CHAR_RE = /[^\w.\-/]/g;
 const PAGE_EXTENSION_MARKER = "@_@";
 
 /**
- * Compute the human-readable basename for a JS entry chunk. Exported for
- * tests; integrations should consume the default export.
+ * Compute the human-readable basename for a client JS chunk (entry, shared,
+ * or lazy-loaded). Exported for tests; integrations should consume the
+ * default export.
  */
 export function entryName(chunkInfo, { separator = "_" } = {}) {
   const match = chunkInfo.facadeModuleId?.match(SCRIPT_BLOCK_RE);
@@ -49,6 +50,8 @@ export default function niceAssetFilenames(options = {}) {
       "astro:config:setup": ({ config, updateConfig }) => {
         if (!enabled) return;
         const dir = config.build.assets;
+        const jsFileName = (chunk) =>
+          `${dir}/${entryName(chunk, { separator })}.[hash].js`;
 
         updateConfig({
           vite: {
@@ -70,14 +73,17 @@ export default function niceAssetFilenames(options = {}) {
             },
             // Client-environment slot: Astro hard-sets entryFileNames at
             // the top level after the user spread, so the override has to
-            // live here (where the spread happens last).
+            // live here (where the spread happens last). chunkFileNames
+            // covers shared and lazy-loaded chunks (e.g. a component that
+            // is both an island and imported by another island). It must
+            // not move to the top level, which names server chunks.
             environments: {
               client: {
                 build: {
                   rollupOptions: {
                     output: {
-                      entryFileNames: (chunk) =>
-                        `${dir}/${entryName(chunk, { separator })}.[hash].js`,
+                      entryFileNames: jsFileName,
+                      chunkFileNames: jsFileName,
                     },
                   },
                 },

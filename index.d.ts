@@ -19,8 +19,8 @@ export interface NiceAssetFilenamesOptions {
 }
 
 /**
- * Compute the human-readable basename for a JS entry chunk. Exported for
- * unit tests.
+ * Compute the human-readable basename for a client JS chunk (entry, shared,
+ * or lazy-loaded). Exported for unit tests.
  */
 export function entryName(
   chunkInfo: { facadeModuleId?: string | null; name?: string },

@@ -1,3 +1,15 @@
+## [Unreleased]
+
+### Fixed
+
+- Shared and lazy-loaded client JS chunks are now renamed too ([#2]). Only
+  entry chunks were renamed before, so a component that is both an island
+  and imported by another island, or one loaded via `React.lazy()`/dynamic
+  `import()`, kept Astro's default name (`_astro/Clickable.HASH.js` instead
+  of `_astro/clickable.HASH.js`). Verified against Astro 6.4, 7.2 and 7.3.
+
+[#2]: https://github.com/yaroslav/astro-nice-asset-filenames/issues/2
+
 ## [0.2.0] - 2026-08-14
 
 ### Fixed

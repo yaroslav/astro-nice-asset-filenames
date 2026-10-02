@@ -75,6 +75,8 @@ Three transforms, layered:
 2. **Snake_cases (or kebab-cases) the basename.** `ThemeToggle` → `theme_toggle` via [`decamelize`](https://github.com/sindresorhus/decamelize), which handles acronym-heavy names correctly: `OAuth2Client` → `o_auth_2_client`, `HTMLParser` → `html_parser`.
 3. **Preserves the script-block index when it matters.** A `.astro` file with multiple `<script>` blocks emits separate chunks. `index=0` is dropped (the common case); `index >= 1` is appended as `-N` so the filenames remain distinguishable: `foo.HASH.js`, `foo-1.HASH.js`, `foo-2.HASH.js`.
 
+This applies to every client JS chunk: framework islands, `<script>` blocks, and the shared or lazy-loaded chunks the bundler splits out (a component that is both an island and imported by another island, a `React.lazy()` import, and so on).
+
 ## Compatibility
 
 - Astro 6+, including Astro 7 (the integration relies on Vite's Environment API, which Astro adopted in 6.0; Astro 7's Rolldown-based builds are supported)
